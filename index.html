@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="slider">
+      <div class="wrapper">
+        <div
+          style="
+            background-image: url('./img/pexels-castorly-stock-8821913.jpg');
+          "
+          class="item item1 active"
+        >
+          <div class="item__info"></div>
+        </div>
+        <div
+          style="background-image: url('img/pexels-irina-iriser-1379636.jpg')"
+          class="item item2"
+        >
+          <div class="item__info"></div>
+        </div>
+        <div
+          style="background-image: url('img/pexels-pixabay-36762.jpg')"
+          class="item item3"
+        >
+          <div class="item__info"></div>
+        </div>
+      </div>
+
+      <div class="arrow arrow-next"></div>
+      <div class="arrow arrow-prev"></div>
+    </div>
+
+    <!--     
+javascript -->
+    <script>
+      let slider = document.querySelector(".slider");
+      let wrapper = document.querySelector(".wrapper");
+      let next = document.querySelector(".arrow-next");
+      let prev = document.querySelector(".arrow-prev");
+      let item = document.querySelectorAll(".item");
+      let currdeg = 0;
+      let active = 0;
+
+      next.addEventListener("click", () => {
+        slider.classList.toggle("zoom");
+
+        currdeg = currdeg - 120;
+
+        if (active === item.length - 1) {
+          active = 0;
+        } else {
+          active++;
+        }
+
+        toggle();
+      });
+
+      prev.addEventListener("click", () => {
+        slider.classList.toggle("zoom");
+
+        currdeg = currdeg + 120;
+
+        if (active === 0) {
+          active = item.length - 1;
+        } else {
+          active--;
+        }
+
+        toggle();
+      });
+
+      let toggle = () => {
+        setTimeout(() => {
+          for (let i = 0; i < item.length; i++) {
+            item[i].classList.remove("active");
+          }
+
+          item[active].classList.add("active");
+          wrapper.style.transform = "rotateY(" + currdeg + "deg)";
+        }, 900);
+
+        setTimeout(() => {
+          slider.classList.toggle("zoom");
+        }, 1900);
+      };
+    </script>
+  </body>
+</html>
